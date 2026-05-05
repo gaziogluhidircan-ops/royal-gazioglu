@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://royalgazioglu.com/sitemap.xml
+
+# Block unnecessary paths
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /*.json$
+
+# Allow important pages
+Allow: /
+Allow: /rooms
+Allow: /booking
+Allow: /gallery
+Allow: /blog
+Allow: /contact
+Allow: /tr
+Allow: /en
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1

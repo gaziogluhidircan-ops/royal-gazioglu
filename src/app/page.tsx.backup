@@ -1,0 +1,410 @@
+'use client'
+
+import React from 'react'
+import Link from 'next/link'
+import { ArrowRight, Star, MapPin, Wifi, Car, Coffee, Dumbbell, WandSparkles, Trees, Waves } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { useLanguage } from '@/contexts/LanguageContext'
+import { Room } from '@/types'
+import { cn } from '@/lib/utils'
+
+// Sample room data
+const featuredRooms: Room[] = [
+  {
+    id: '1',
+    name: 'Kral Süiti',
+    nameEn: 'Royal Suite',
+    description: 'Dağ manzaralı özel jakuzili lüks süit',
+    descriptionEn: 'Luxury suite with mountain view and private jacuzzi',
+    features: ['Jakuzi', 'Manzaralı Balkon', 'Mini Bar', 'Klima'],
+    featuresEn: ['Jacuzzi', 'Mountain View Balcony', 'Mini Bar', 'AC'],
+    price: 3500,
+    maxGuests: 2,
+    size: 65,
+    images: ['/room1.jpg'],
+    hasFloatingSpa: true,
+    category: 'presidential'
+  },
+  {
+    id: '2',
+    name: 'Doğa Deluxe',
+    nameEn: 'Nature Deluxe',
+    description: 'Orman manzaralı geniş oda',
+    descriptionEn: 'Spacious room with forest view',
+    features: ['Orman Manzarası', 'King Yatak', 'Oturma Alanı', 'Kahve Makinesi'],
+    featuresEn: ['Forest View', 'King Bed', 'Seating Area', 'Coffee Machine'],
+    price: 2200,
+    maxGuests: 2,
+    size: 45,
+    images: ['/room2.jpg'],
+    category: 'deluxe'
+  },
+  {
+    id: '3',
+    name: 'Göl Manzarası',
+    nameEn: 'Lake View',
+    description: 'Göl manzaralı romantik oda',
+    descriptionEn: 'Romantic room with lake view',
+    features: ['Göl Manzarası', 'Veranda', 'Şömine', 'Lüks Banyo'],
+    featuresEn: ['Lake View', 'Veranda', 'Fireplace', 'Luxury Bathroom'],
+    price: 2800,
+    maxGuests: 2,
+    size: 55,
+    images: ['/room3.jpg'],
+    category: 'deluxe'
+  }
+]
+
+const activities = [
+  {
+    icon: Trees,
+    name: 'Doğa Yürüyüşleri',
+    nameEn: 'Nature Hiking',
+    description: 'Rehberli dağ turları',
+    descriptionEn: 'Guided mountain tours'
+  },
+  {
+    icon: Waves,
+    name: 'Nehir Yüzme',
+    nameEn: 'River Swimming',
+    description: 'Doğal nehirde yüzme',
+    descriptionEn: 'Swimming in natural river'
+  },
+  {
+    icon: WandSparkles,
+    name: 'Spa & Masaj',
+    nameEn: 'Spa & Massage',
+    description: 'Geleneksel masaj terapileri',
+    descriptionEn: 'Traditional massage therapies'
+  },
+  {
+    icon: Coffee,
+    name: 'Organik Kahve',
+    nameEn: 'Organic Coffee',
+    description: 'Kendi bahçemizin kahveleri',
+    descriptionEn: 'Coffee from our own garden'
+  }
+]
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6 }
+}
+
+export default function HomePage() {
+  const { t } = useLanguage()
+
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Video Placeholder */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-stone-800 to-stone-900">
+          <div className="absolute inset-0 bg-black/20"></div>
+          {/* Video would go here */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-white text-center space-y-8 z-10 px-4">
+              <motion.h1 
+                className="font-serif text-5xl md:text-7xl font-bold text-shadow"
+                {...fadeInUp}
+              >
+                Royal Gazioğlu
+              </motion.h1>
+              <motion.p 
+                className="text-xl md:text-3xl font-light max-w-3xl mx-auto text-shadow"
+                {...fadeInUp}
+                transition={{ delay: 0.2 }}
+              >
+                {t('Doğa ile bütünleşmiş lüks bir kaçış', 'A luxury escape integrated with nature')}
+              </motion.p>
+              <motion.p 
+                className="text-lg md:text-xl font-medium text-gold-400"
+                {...fadeInUp}
+                transition={{ delay: 0.4 }}
+              >
+                {t('Doğanın kalbinde, hayallerin ötesinde bir deneyim', 'Beyond dreams in the heart of nature')}
+              </motion.p>
+              <motion.div 
+                className="flex flex-col sm:flex-row gap-4 justify-center mt-8"
+                {...fadeInUp}
+                transition={{ delay: 0.6 }}
+              >
+                <Link href="/booking" className="btn-gold">
+                  {t('Rezervasyon Yap', 'Book Now')}
+                </Link>
+                <Link href="/rooms" className="btn-secondary">
+                  {t('Odaları Keşfet', 'Explore Rooms')}
+                </Link>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Scroll Indicator */}
+        <motion.div 
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-white rounded-full mt-2"></div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* About Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div {...fadeInUp}>
+              <h2 className="font-serif text-4xl md:text-5xl font-bold text-stone-900 mb-6">
+                {t('Doğa ile Lüksün Buluştuğu Nokta', 'Where Nature Meets Luxury')}
+              </h2>
+              <p className="text-stone-600 text-lg mb-6">
+                {t(
+                  'Royal Gazioğlu, Tunceli\'nin kalbinde, Halvori Köyü\'nde yer alan modern taş mimari ile doğa arasında mükemmel bir denge kurmuş butik bir oteldir. Yeşil dağlar, berrak nehirler ve doğal manzaralarla çevrili bu eşsiz mekan, size unutulmaz bir konaklama deneyimi sunar.',
+                  'Royal Gazioğlu is a boutique hotel located in the heart of Tunceli, in Halvori Village, perfectly balancing modern stone architecture with nature. Surrounded by green mountains, clear rivers, and natural landscapes, this unique venue offers you an unforgettable accommodation experience.'
+                )}
+              </p>
+              <p className="text-stone-600 text-lg mb-8">
+                {t(
+                  'Her detayı özenle düşünülmüş odalarımız, geleneksel Türk misafirperverliği ile modern konforu bir araya getiriyor. Gizli teknolojik özelliklerimiz ve sürdürülebilir yaklaşımımızla, doğayı korurken lüks bir kaçış sunuyoruz.',
+                  'Our rooms, where every detail has been carefully considered, bring together traditional Turkish hospitality with modern comfort. With our hidden technological features and sustainable approach, we offer a luxury escape while protecting nature.'
+                )}
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <div className="flex items-center space-x-2">
+                  <Star className="w-5 h-5 text-gold-500" />
+                  <span className="text-stone-700">5 {t('Yıldız', 'Star')} {t('Hizmet', 'Service')}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <MapPin className="w-5 h-5 text-primary-600" />
+                  <span className="text-stone-700">Halvori Köyü, Tunceli</span>
+                </div>
+              </div>
+            </motion.div>
+            <motion.div 
+              className="relative h-96 lg:h-full min-h-[400px] rounded-2xl overflow-hidden shadow-2xl"
+              {...fadeInUp}
+              transition={{ delay: 0.2 }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-600 to-stone-600"></div>
+              <div className="absolute inset-0 flex items-center justify-center text-white text-center">
+                <div>
+                  <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-3xl font-bold">RG</span>
+                  </div>
+                  <p className="text-xl font-serif">{t('Royal Gazioğlu', 'Royal Gazioğlu')}</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Rooms */}
+      <section className="py-20 bg-stone-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div {...fadeInUp} className="text-center mb-12">
+            <h2 className="font-serif text-4xl md:text-5xl font-bold text-stone-900 mb-4">
+              {t('Özel Odalarımız', 'Our Exclusive Rooms')}
+            </h2>
+            <p className="text-stone-600 text-lg max-w-2xl mx-auto">
+              {t(
+                'Her biri kendine özgü karaktere sahip lüks odalarımızda rüya gibi bir konaklama deneyimi yaşayın.',
+                'Experience a dream-like stay in our luxury rooms, each with its own unique character.'
+              )}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredRooms.map((room, index) => (
+              <motion.div
+                key={room.id}
+                {...fadeInUp}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+              >
+                <div className="h-48 bg-gradient-to-br from-primary-500 to-stone-600 relative">
+                  {room.hasFloatingSpa && (
+                    <div className="absolute top-4 right-4 bg-gold-500 text-stone-900 px-3 py-1 rounded-full text-xs font-semibold">
+                      {t('Floating Spa', 'Floating Spa')}
+                    </div>
+                  )}
+                </div>
+                <div className="p-6">
+                  <h3 className="font-serif text-2xl font-bold text-stone-900 mb-2">
+                    {t(room.name, room.nameEn)}
+                  </h3>
+                  <p className="text-stone-600 mb-4">
+                    {t(room.description, room.descriptionEn)}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {room.features.slice(0, 3).map((feature, idx) => (
+                      <span
+                        key={idx}
+                        className="text-xs bg-stone-100 text-stone-700 px-2 py-1 rounded-full"
+                      >
+                        {t(feature, room.featuresEn[idx])}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-2xl font-bold text-primary-600">₺{room.price}</span>
+                      <span className="text-stone-500 text-sm">/{t('gece', 'night')}</span>
+                    </div>
+                    <Link
+                      href={`/rooms#${room.id}`}
+                      className="text-primary-600 hover:text-primary-700 font-medium flex items-center space-x-1"
+                    >
+                      <span>{t('Detaylar', 'Details')}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link href="/rooms" className="btn-primary">
+              {t('Tüm Odaları Gör', 'View All Rooms')}
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Activities */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div {...fadeInUp} className="text-center mb-12">
+            <h2 className="font-serif text-4xl md:text-5xl font-bold text-stone-900 mb-4">
+              {t('Doğa Deneyimleri', 'Nature Experiences')}
+            </h2>
+            <p className="text-stone-600 text-lg max-w-2xl mx-auto">
+              {t(
+                'Doğanın kalbinde unutulmaz anlar yaşayın. Rehberli turlar, nehir aktiviteleri ve daha fazlası.',
+                'Live unforgettable moments in the heart of nature. Guided tours, river activities, and more.'
+              )}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {activities.map((activity, index) => (
+              <motion.div
+                key={index}
+                {...fadeInUp}
+                transition={{ delay: index * 0.1 }}
+                className="text-center group"
+              >
+                <div className="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary-200 transition-colors">
+                  <activity.icon className="w-10 h-10 text-primary-600" />
+                </div>
+                <h3 className="font-serif text-xl font-semibold text-stone-900 mb-2">
+                  {t(activity.name, activity.nameEn)}
+                </h3>
+                <p className="text-stone-600 text-sm">
+                  {t(activity.description, activity.descriptionEn)}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Hidden Futuristic Experiences Teaser */}
+      <section className="py-20 bg-gradient-to-br from-stone-900 to-primary-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div {...fadeInUp} className="text-center">
+            <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6">
+              {t('Gizli Teknolojik Deneyimler', 'Hidden Technological Experiences')}
+            </h2>
+            <p className="text-xl text-stone-300 mb-8 max-w-3xl mx-auto">
+              {t(
+                'Geleneksel lüksün ardında, size özel teknolojik deneyimler sizi bekliyor. Yüzen spa odalarından immersif rahatlama alanlarına kadar...',
+                'Behind traditional luxury, special technological experiences await you. From floating spa rooms to immersive relaxation areas...'
+              )}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              <motion.div
+                {...fadeInUp}
+                transition={{ delay: 0.2 }}
+                className="text-center"
+              >
+                <div className="w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-4 floating">
+                  <span className="text-2xl">🌊</span>
+                </div>
+                <h3 className="font-serif text-xl font-semibold mb-2">
+                  {t('Yüzen Spa', 'Floating Spa')}
+                </h3>
+                <p className="text-stone-300 text-sm">
+                  {t('Yerçekimsiz spa deneyimi', 'Anti-gravity spa experience')}
+                </p>
+              </motion.div>
+              <motion.div
+                {...fadeInUp}
+                transition={{ delay: 0.4 }}
+                className="text-center"
+              >
+                <div className="w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-4 floating" style={{ animationDelay: '2s' }}>
+                  <span className="text-2xl">🧘</span>
+                </div>
+                <h3 className="font-serif text-xl font-semibold mb-2">
+                  {t('İmmersif Rahatlama', 'Immersive Relaxation')}
+                </h3>
+                <p className="text-stone-300 text-sm">
+                  {t('360° doğa deneyimi', '360° nature experience')}
+                </p>
+              </motion.div>
+              <motion.div
+                {...fadeInUp}
+                transition={{ delay: 0.6 }}
+                className="text-center"
+              >
+                <div className="w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-4 floating" style={{ animationDelay: '4s' }}>
+                  <span className="text-2xl">✨</span>
+                </div>
+                <h3 className="font-serif text-xl font-semibold mb-2">
+                  {t('Akıllı Konfor', 'Smart Comfort')}
+                </h3>
+                <p className="text-stone-300 text-sm">
+                  {t('Kişiselleştirilmiş otomasyon', 'Personalized automation')}
+                </p>
+              </motion.div>
+            </div>
+            <Link href="/rooms" className="btn-gold">
+              {t('Gizli Dünyayı Keşfet', 'Explore the Hidden World')}
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-primary-600 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div {...fadeInUp}>
+            <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6">
+              {t('Hayalinizdeki Kaçış İçin Hazır mısınız?', 'Ready for Your Dream Escape?')}
+            </h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto">
+              {t(
+                'Royal Gazioğlu\'nda unutulmaz bir deneyim için yerinizi ayırtın. Doğa ile lüksün buluştuğu bu eşsiz mekan sizi bekliyor.',
+                'Reserve your place for an unforgettable experience at Royal Gazioğlu. This unique venue where nature meets luxury is waiting for you.'
+              )}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/booking" className="btn-gold bg-gold-500 hover:bg-gold-600 text-stone-900">
+                {t('Şimdi Rezervasyon Yap', 'Book Now')}
+              </Link>
+              <Link href="/contact" className="btn-secondary bg-white/20 hover:bg-white/30 text-white border-white">
+                {t('Bize Ulaşın', 'Contact Us')}
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  )
+}
